@@ -19,6 +19,7 @@
 		6D7CD4BF27D0FD8E00471F63 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D7CD4BD27D0FD8E00471F63 /* LaunchScreen.storyboard */; };
 		6D7CD4C527D0FDC400471F63 /* DRRoutes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D7CD49D27D0EA1100471F63 /* DRRoutes.framework */; platformFilter = ios; };
 		6D7CD4C627D0FDC400471F63 /* DRRoutes.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D7CD49D27D0EA1100471F63 /* DRRoutes.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6DA5967027E214D200CBFA6F /* DRNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA5966F27E214D200CBFA6F /* DRNavigator.swift */; };
 		6DC8E12E27D646B3009B821F /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC8E12D27D646B3009B821F /* Request.swift */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 		6D7CD4BB27D0FD8E00471F63 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6D7CD4BE27D0FD8E00471F63 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6D7CD4C027D0FD8E00471F63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6DA5966F27E214D200CBFA6F /* DRNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRNavigator.swift; sourceTree = "<group>"; };
 		6DC8E12D27D646B3009B821F /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -117,6 +119,7 @@
 				6D2BAC7F27DA25310006F106 /* DRRouter.swift */,
 				6DC8E12D27D646B3009B821F /* Request.swift */,
 				6D2BAC8127DA30970006F106 /* Response.swift */,
+				6DA5966F27E214D200CBFA6F /* DRNavigator.swift */,
 			);
 			path = class;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DA5967027E214D200CBFA6F /* DRNavigator.swift in Sources */,
 				6D2BAC8227DA30970006F106 /* Response.swift in Sources */,
 				6D2BAC8027DA25310006F106 /* DRRouter.swift in Sources */,
 				6D7CD4A927D0EAEB00471F63 /* DRRoutes.swift in Sources */,

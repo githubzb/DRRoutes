@@ -49,6 +49,7 @@ extension DRRoutes {
     public static var globalRoutes: DRRoutes { routes(for: Constant.globalSchemeKey) }
     
     /// 获取指定scheme的routes
+    @discardableResult
     public static func routes(for scheme: String, routerBuilder: @escaping RouterBuilder = {DRRouter(pattern: $0, priority: $1, handler: $2)}) -> DRRoutes {
         let routes: DRRoutes
         if Global.hasRoute(for: scheme) {
@@ -151,13 +152,13 @@ extension DRRoutes {
         let options = _routeRequestOptions
         let request = Request(url: url, options: options, parameters: parameters)
         var res: HandlerResult = .fail(nil)
-        for router in routers {
+    forlabel:for router in routers {
             switch router.routerResponse(for: request) {
             case .nomatch:
-                continue
+                continue forlabel
             case let .match(params):
                 res = router.callHandler(parameters: params)
-                break
+                break forlabel
             }
         }
         if case .fail(_) = res, (shouldFallbackToGlobalRoutes && !isGlobalRoutes) {
@@ -359,7 +360,7 @@ public final class Global {
     }
     static var allRoutes: RouteMap { share.map }
     
-    /// Configures if '+' should be replaced with spaces in parsed values. Defaults to YES.
+    /// Configures if '+' should be replaced with spaces in parsed values. Defaults to true.
     public static var shouldDecodePlusSymbols: Bool {
         set {
             share._shouldDecodePlusSymbols = newValue
@@ -369,7 +370,7 @@ public final class Global {
         }
     }
     
-    /// Configures if URL host is always considered to be a path component. Defaults to NO.
+    /// Configures if URL host is always considered to be a path component. Defaults to false.
     public static var alwaysTreatsHostAsPathComponent: Bool {
         set {
             share._alwaysTreatsHostAsPathComponent = newValue

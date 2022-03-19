@@ -7,6 +7,7 @@
 
 import UIKit
 import DRRoutes
+import DrFlexLayout_swift
 
 class ViewController: UIViewController {
     
@@ -14,83 +15,60 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 注册scheme为app的路由（支持可选路径）
-        let pattern = "/the(/foo/:a)(/bar/:b)"
-        DRRoutes.routes(for: "app").addRouter(pattern: pattern) { parameters in
-            print("pattern: \(parameters)")
-            return .success(nil)
-        }
-        
-        // 设置当前路由不能处理时，交由全局路由处理
-        DRRoutes.routes(for: "app").shouldFallbackToGlobalRoutes = true
-        
-        // 注册全局路由
-        let pattern2 = "/user/info/:userId/"
-        DRRoutes.globalRoutes.addRouter(pattern: pattern2) { parameters in
-            print("pattern2: \(parameters)")
-            return .success(nil)
-        }
-        
-        // 为全局scheme路由设置未匹配到路由的回调
-        DRRoutes.globalRoutes.unmatchedURLHandler = { (_, url, params)in
-            print("unmatched: \(url), param: \(params)")
-        }
-        
-        // 注册返回值的全局路由
-        let pattern3 = "/age/:age"
-        DRRoutes.globalRoutes.addRouter(pattern: pattern3) { parameters in
+        view.dr_flex.justifyContent(.center).alignItems(.center).define { flex in
+            flex.addItem(UIButton(type: .custom)).size(CGSize(width: 120, height: 40)).define { flex in
+                let btn = flex.view as! UIButton
+                btn.layer.cornerRadius = 20
+                btn.backgroundColor = .blue
+                btn.setTitle("Test Routes", for: .normal)
+                btn.setTitleColor(.white, for: .normal)
+                btn.addTarget(self, action: #selector(clickTestRoutesBtn), for: .touchUpInside)
+            }
+            flex.addItem(UIButton(type: .custom)).size(CGSize(width: 180, height: 40)).marginTop(10).define { flex in
+                let btn = flex.view as! UIButton
+                btn.layer.cornerRadius = 20
+                btn.backgroundColor = .blue
+                btn.setTitle("Test Navigator(1)", for: .normal)
+                btn.setTitleColor(.white, for: .normal)
+                btn.addTarget(self, action: #selector(clickTestNavigator1Btn), for: .touchUpInside)
+            }
             
-            return .success("name: \(parameters["name"] as? String ?? ""), age: \(parameters["age"] as? String ?? "")")
+            flex.addItem(UIButton(type: .custom)).size(CGSize(width: 180, height: 40)).marginTop(10).define { flex in
+                let btn = flex.view as! UIButton
+                btn.layer.cornerRadius = 20
+                btn.backgroundColor = .blue
+                btn.setTitle("Test Navigator(2)", for: .normal)
+                btn.setTitleColor(.white, for: .normal)
+                btn.addTarget(self, action: #selector(clickTestNavigator2Btn), for: .touchUpInside)
+            }
         }
-        
-        let url33 = URL(string: "app://age/34")!
-        if let str: String = DRRoutes.routeTarget(url: url33, parameters: ["name": "drbox"]) {
-            print("str: \(str)")
-        }else{
-            print("---str is null")
-        }
-        
-//        let url_22 = URL(string: "app://setting")!
-//        let res = DRRoutes.route(url: url_22, parameters: ["name": "drbox"])
-//        print("res22: \(res ? "true" : "false")")
-        
-//        let url_21 = URL(string: "app://user/info/1234")!
-//        if DRRoutes.route(url: url_21, parameters: ["name": "drbox"]) {
-//            print("res21: true")
-//        }else{
-//            print("res21: false")
-//        }
-        
-        
-//        let url = URL(string: "app://the")!
-//        if DRRoutes.route(url: url, parameters: ["name": "drbox"]) {
-//            print("res1: true")
-//        }else{
-//            print("res1: false")
-//        }
-//
-//        let url2 = URL(string: "app://the/foo/1234")!
-//        if DRRoutes.route(url: url2, parameters: ["name": "drbox"]) {
-//            print("res2: true")
-//        }else {
-//            print("res2: false")
-//        }
-//
-//        let url3 = URL(string: "app://the/foo/1234/bar/3434")!
-//        if DRRoutes.route(url: url3, parameters: ["name": "drbox"]) {
-//            print("res3: true")
-//        }else{
-//            print("res3: false")
-//        }
-//
-//        let url4 = URL(string: "app://the/bar/3434")!
-//        if DRRoutes.route(url: url4, parameters: ["name": "drbox"]) {
-//            print("res4: true")
-//        }else {
-//            print("res4: false")
-//        }
         
     }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        view.dr_flex.layout()
+    }
+    
+    
+    @objc func clickTestRoutesBtn() {
+        let vc = TestRoutesViewController()
+        present(vc, animated: true, completion: nil)
+    }
+    
+    @objc func clickTestNavigator1Btn() {
+        let vc = TestNavigatorViewController()
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true, completion: nil)
+    }
+    
+    @objc func clickTestNavigator2Btn() {
+        let vc = TestNavigatorViewController()
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true, completion: nil)
+    }
+    
 }
 
 
